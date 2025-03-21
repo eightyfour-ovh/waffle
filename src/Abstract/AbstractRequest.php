@@ -77,4 +77,14 @@ abstract class AbstractRequest
         }
 
     abstract public function __construct();
+
+    public function configure(): void
+    {
+        // TODO: Implement configure() method.
+    }
+
+    public function process(): void
+    {
+        // TODO: Implement process() method.
+    }
 }
