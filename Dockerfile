@@ -1,0 +1,30 @@
+ARG FRAKEN_VERSION='1.4.4'
+ARG PHP_VERSION='8.4.5'
+ARG OS='bookworm'
+
+FROM composer:latest as composer
+FROM dunglas/frankenphp:${FRAKEN_VERSION}-php${PHP_VERSION}-${OS}
+
+# add additional extensions here:
+RUN install-php-extensions \
+	pdo_mysql \
+	gd \
+	intl \
+	zip \
+	opcache;
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+ARG USER=app
+
+RUN \
+	# Use "adduser -D ${USER}" for alpine based distros
+	useradd ${USER}; \
+	# Add additional capability to bind to port 80 and 443
+	setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
+	# Give write access to /data/caddy and /config/caddy
+	chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy
+
+USER ${USER}
+
+COPY . /app/public
