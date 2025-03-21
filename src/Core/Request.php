@@ -8,4 +8,8 @@ use Eightyfour\Interface\RequestInterface;
 class Request extends AbstractRequest implements RequestInterface
 {
 
+    public function __construct()
+    {
+
+    }
 }
