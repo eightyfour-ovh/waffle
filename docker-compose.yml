@@ -1,0 +1,26 @@
+services:
+  waffle:
+    hostname: waffle
+    container_name: waffle
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    ports:
+      - "80:80" # HTTP
+      - "443:443" # HTTPS
+      - "443:443/udp" # HTTP/3
+    environment:
+      - XDEBUG_MODE=coverage
+    volumes:
+      - ./:/app
+      - caddy_data:/data
+      - caddy_config:/config
+    tty: true
+    networks:
+      eightyfour:
+volumes:
+  caddy_data:
+  caddy_config:
+networks:
+  eightyfour:
