@@ -77,9 +77,4 @@ abstract class AbstractRequest
         }
 
     abstract public function __construct();
-
-    static public function createFromGlobals(): AbstractRequest
-    {
-        return new static();
-    }
 }
