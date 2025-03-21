@@ -2,9 +2,10 @@
 
 namespace Eightyfour\Core;
 
+use Eightyfour\Abstract\AbstractRequest;
 use Eightyfour\Interface\RequestInterface;
 
-class Request implements RequestInterface
+class Request extends AbstractRequest implements RequestInterface
 {
 
 }
