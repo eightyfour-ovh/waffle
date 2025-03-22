@@ -34,7 +34,7 @@
         "linter": "vendor/bin/phplint --configuration=phplint.yml",
         "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon -vv",
         "psalm": "vendor/bin/psalm --config=psalm.xml",
-        "tests": "vendor/bin/phpunit --coverage-html var/data/phpunit-coverage",
+        "phpunit": "vendor/bin/phpunit --coverage-html var/data/phpunit-coverage",
         "benchmark": [
             "Composer\\Config::disableProcessTimeout",
             "vendor/bin/phpbench run --report=default_report --output=waffle_html --retry-threshold=10"
@@ -43,11 +43,12 @@
             "@linter",
             "@phpstan"
         ],
-        "test": [
-            "@tests"
+        "tests": [
+            "@phpunit"
         ],
         "gha": [
             "@analysis",
+            "@tests",
             "@benchmark"
         ]
     }

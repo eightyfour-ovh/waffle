@@ -5,18 +5,11 @@ namespace Eightyfour\Abstract;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
 use Eightyfour\Trait\MicrokernelTrait;
+use function PHPUnit\Framework\isInstanceOf;
 
 abstract class AbstractKernel
 {
     use MicrokernelTrait;
-
-    public function isCli(): bool
-    {
-        return match (php_sapi_name()) {
-            'cli' => true,
-            default => false,
-        };
-    }
 
     public function createRequestFromGlobals(): Request
     {

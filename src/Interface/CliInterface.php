@@ -6,7 +6,7 @@ use Eightyfour\Core\Response;
 
 interface CliInterface
 {
-    public function configure(): void;
+    public function configure(bool $cli): void;
 
     public function process(): Response;
 }

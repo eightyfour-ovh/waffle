@@ -10,7 +10,7 @@ class Request extends AbstractRequest implements RequestInterface
     public function __construct()
     {
         // TODO: Implement __construct() method.
-        $this->configure();
+        $this->configure(cli: false);
     }
 
     public function process(): Response

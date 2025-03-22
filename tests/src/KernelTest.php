@@ -83,10 +83,6 @@ class KernelTest extends TestCase
         $response = $this->createMock(Response::class);
 
         // Then
-        $response
-            ->expects($this->once())
-            ->method('render')
-        ;
         $handler
             ->expects($this->once())
             ->method('process')

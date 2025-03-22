@@ -80,11 +80,18 @@ abstract class AbstractRequest
             get => $_ENV;
         }
 
+    private(set) bool $cli
+        {
+            get => $this->cli;
+            set => $this->cli = $value;
+        }
+
     abstract public function __construct();
 
-    public function configure(): void
+    public function configure(bool $cli): void
     {
         // TODO: Implement configure() method.
+        $this->cli = $cli;
         $this->loadEnv();
     }
 }

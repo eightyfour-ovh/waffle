@@ -7,8 +7,16 @@ use Eightyfour\Core\Request;
 
 trait MicrokernelTrait
 {
+    public function isCli(): bool
+    {
+        return match (php_sapi_name()) {
+            'cli' => true,
+            default => false,
+        };
+    }
+
     public function configurator(Cli|Request $handler): void
     {
-        $handler->configure();
+        $handler->configure(cli: $this->isCli());
     }
 }

@@ -10,7 +10,7 @@ class Cli extends AbstractCli implements CliInterface
     public function __construct()
     {
         // TODO: Implement __construct() method.
-        $this->configure();
+        $this->configure(cli: true);
     }
 
     public function process(): Response
