@@ -16,7 +16,7 @@
         <server name="SHELL_VERBOSITY" value="-1"/>
     </php>
     <testsuites>
-        <testsuite name="Eightyfour Test Suite">
+        <testsuite name="Waffle Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -25,9 +25,5 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
-        <exclude>
-            <directory suffix=".php">src/Core/Reflection</directory>
-            <file>src/Core/DotEnv.php</file>
-        </exclude>
     </source>
 </phpunit>
