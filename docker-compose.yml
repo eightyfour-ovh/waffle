@@ -11,6 +11,7 @@ services:
       - "443:443" # HTTPS
       - "443:443/udp" # HTTP/3
     environment:
+      - CADDY_GLOBAL_OPTIONS=debug
       - XDEBUG_MODE=coverage
     volumes:
       - ./:/app

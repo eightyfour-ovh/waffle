@@ -4,12 +4,12 @@
   "runner.path": "tests",
   "runner.file_pattern": "*Bench.php",
   "report.outputs": {
-    "fuzzy_html": {
+    "waffle_html": {
       "extends": "html",
       "path": "var/data/benchmark/index.html",
-      "title": "Benchmark of Fuzzy framework"
+      "title": "Benchmark of Waffle framework"
     },
-    "fuzzy_cli": {
+    "waffle_cli": {
       "extends": "console"
     }
   },
