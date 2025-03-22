@@ -39,7 +39,9 @@
         ],
         "analysis": [
             "@linter",
-            "@phpstan",
+            "@phpstan"
+        ],
+        "test": [
             "@tests"
         ],
         "gha": [

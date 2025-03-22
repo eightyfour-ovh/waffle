@@ -2,10 +2,12 @@
 
 namespace Eightyfour\Abstract;
 
-use Symfony\Component\Dotenv\Dotenv;
+use Eightyfour\Trait\DotenvTrait;
 
 abstract class AbstractRequest
 {
+    use DotenvTrait;
+
     /**
      * @var array<mixed>
      */
@@ -83,8 +85,7 @@ abstract class AbstractRequest
     public function configure(): void
     {
         // TODO: Implement configure() method.
-        $dotenv = new Dotenv();
-        $dotenv->loadEnv(path: APP_ROOT . '/.env');
+        $this->loadEnv();
     }
 
     public function process(): void
