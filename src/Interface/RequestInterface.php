@@ -2,11 +2,11 @@
 
 namespace Eightyfour\Interface;
 
-use Eightyfour\Abstract\AbstractRequest;
+use Eightyfour\Core\Response;
 
 interface RequestInterface
 {
     public function configure(): void;
 
-    public function process(): void;
+    public function process(): Response;
 }

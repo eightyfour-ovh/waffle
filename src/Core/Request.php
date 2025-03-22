@@ -12,4 +12,11 @@ class Request extends AbstractRequest implements RequestInterface
         // TODO: Implement __construct() method.
         $this->configure();
     }
+
+    public function process(): Response
+    {
+        // TODO: Implement process() method.
+
+        return new Response(handler: $this);
+    }
 }

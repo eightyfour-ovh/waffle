@@ -8,14 +8,11 @@ abstract class AbstractCli
 {
     use DotenvTrait;
 
+    abstract public function __construct();
+
     public function configure(): void
     {
         // TODO: Implement configure() method.
         $this->loadEnv();
-    }
-
-    public function process(): void
-    {
-        // TODO: Implement process() method.
     }
 }

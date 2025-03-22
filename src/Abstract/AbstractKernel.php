@@ -4,9 +4,12 @@ namespace Eightyfour\Abstract;
 
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
+use Eightyfour\Trait\MicrokernelTrait;
 
 abstract class AbstractKernel
 {
+    use MicrokernelTrait;
+
     public function isCli(): bool
     {
         // TODO: Implement isCli() method.
@@ -18,7 +21,7 @@ abstract class AbstractKernel
     {
         // TODO: Implement createRequestFromGlobals() method.
         $request = new Request();
-        $request->configure();
+        $this->configurator(handler: $request);
 
         return $request;
     }
@@ -27,7 +30,7 @@ abstract class AbstractKernel
     {
         // TODO: Implement createCli() method.
         $cli = new Cli();
-        $cli->configure();
+        $this->configurator(handler: $cli);
 
         return $cli;
     }
@@ -35,6 +38,9 @@ abstract class AbstractKernel
     public function run(Cli|Request $handler): void
     {
         // TODO: Implement run() method.
-        $handler->process();
+        $handler
+            ->process()
+            ->render()
+        ;
     }
 }

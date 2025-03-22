@@ -87,9 +87,4 @@ abstract class AbstractRequest
         // TODO: Implement configure() method.
         $this->loadEnv();
     }
-
-    public function process(): void
-    {
-        // TODO: Implement process() method.
-    }
 }
