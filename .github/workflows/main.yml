@@ -48,6 +48,9 @@ jobs:
       - name: PHP Static Analysis Tool (PHPStan)
         run: vendor/bin/phpstan analyse -c phpstan.neon -vv
 
+      - name: PHP Static Analysis Tool (Psalm)
+        run: vendor/bin/psalm --config=psalm.xml
+
       - name: The PHP testing framework (PHPUnit)
         run: vendor/bin/phpunit --coverage-text
 

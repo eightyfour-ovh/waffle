@@ -27,19 +27,22 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^12.0",
         "overtrue/phplint": "^9.1",
-        "phpbench/phpbench": "^1.2"
+        "phpbench/phpbench": "^1.2",
+        "vimeo/psalm": "^6.9"
     },
     "scripts": {
         "linter": "vendor/bin/phplint --configuration=phplint.yml",
         "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon -vv",
+        "psalm": "vendor/bin/psalm --config=psalm.xml",
         "tests": "vendor/bin/phpunit --coverage-html var/data/phpunit-coverage",
         "benchmark": [
             "Composer\\Config::disableProcessTimeout",
-            "vendor/bin/phpbench run --report=default_report --output=fuzzy_html --retry-threshold=10"
+            "vendor/bin/phpbench run --report=default_report --output=waffle_html --retry-threshold=10"
         ],
         "analysis": [
             "@linter",
-            "@phpstan"
+            "@phpstan",
+            "@psalm"
         ],
         "test": [
             "@tests"
