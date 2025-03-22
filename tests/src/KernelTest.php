@@ -32,7 +32,7 @@ class KernelTest extends TestCase
         $result = $class->createRequestFromGlobals();
 
         // Expects
-        $this->assertInstanceOf(expected: Request::class, actual: $result);
+        $this->assertInstanceOf(Request::class, $result);
     }
 
     public function testCreateCli(): void
@@ -44,7 +44,7 @@ class KernelTest extends TestCase
         $result = $class->createCli();
 
         // Expects
-        $this->assertInstanceOf(expected: Cli::class, actual: $result);
+        $this->assertInstanceOf(Cli::class, $result);
     }
 
     /**
@@ -54,22 +54,22 @@ class KernelTest extends TestCase
     {
         // Given
         $class = $this->getClass();
-        $handler = $this->createMock(type: Request::class);
-        $response = $this->createMock(type: Response::class);
+        $handler = $this->createMock(Request::class);
+        $response = $this->createMock(Response::class);
 
         // Then
         $response
             ->expects($this->once())
-            ->method(constraint: 'render')
+            ->method('render')
         ;
         $handler
             ->expects($this->once())
-            ->method(constraint: 'process')
+            ->method('process')
             ->willReturn($response)
         ;
 
         // When
-        $class->run(handler: $handler);
+        $class->run($handler);
     }
 
     /**
@@ -79,22 +79,22 @@ class KernelTest extends TestCase
     {
         // Given
         $class = $this->getClass();
-        $handler = $this->createMock(type: Cli::class);
-        $response = $this->createMock(type: Response::class);
+        $handler = $this->createMock(Cli::class);
+        $response = $this->createMock(Response::class);
 
         // Then
         $response
             ->expects($this->once())
-            ->method(constraint: 'render')
+            ->method('render')
         ;
         $handler
             ->expects($this->once())
-            ->method(constraint: 'process')
+            ->method('process')
             ->willReturn($response)
         ;
 
         // When
-        $class->run(handler: $handler);
+        $class->run($handler);
     }
 
     private function getClass(): Kernel
