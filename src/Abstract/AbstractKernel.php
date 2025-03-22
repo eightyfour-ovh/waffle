@@ -12,9 +12,10 @@ abstract class AbstractKernel
 
     public function isCli(): bool
     {
-        // TODO: Implement isCli() method.
-
-        return false;
+        return match (php_sapi_name()) {
+            'cli' => true,
+            default => false,
+        };
     }
 
     public function createRequestFromGlobals(): Request

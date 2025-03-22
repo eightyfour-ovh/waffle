@@ -11,7 +11,8 @@ RUN install-php-extensions \
 	gd \
 	intl \
 	zip \
-	opcache;
+	opcache \
+    xdebug;
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
