@@ -48,11 +48,14 @@ jobs:
       - name: PHP Static Analysis Tool (PHPStan)
         run: vendor/bin/phpstan analyse -c phpstan.neon -vv
 
+      - name: PHP Static Analysis Tool (Psalm)
+        run: echo "Won't run Psalm as long as it doesn't support property hook" # vendor/bin/psalm --config=psalm.xml
+
       - name: The PHP testing framework (PHPUnit)
         run: vendor/bin/phpunit --coverage-text
 
       - name: The PHP benchmark tool (PHPBench)
-        run: vendor/bin/phpbench run --report=default_report --output=fuzzy_cli --retry-threshold=10
+        run: vendor/bin/phpbench run --report=default_report --output=waffle_cli --retry-threshold=10
 
       - name: Save cache
         id: cache-save

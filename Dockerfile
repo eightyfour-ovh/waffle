@@ -11,7 +11,10 @@ RUN install-php-extensions \
 	gd \
 	intl \
 	zip \
-	opcache;
+	opcache \
+    xdebug;
+
+RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
