@@ -4,29 +4,24 @@ namespace Eightyfour\Abstract;
 
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
+use Eightyfour\Trait\DotenvTrait;
 use Eightyfour\Trait\MicrokernelTrait;
-use function PHPUnit\Framework\isInstanceOf;
 
 abstract class AbstractKernel
 {
     use MicrokernelTrait;
+    use DotenvTrait;
 
     public function createRequestFromGlobals(): Request
     {
         // TODO: Implement createRequestFromGlobals() method.
-        $request = new Request();
-        $this->configurator(handler: $request);
-
-        return $request;
+        return new Request();
     }
 
     public function createCli(): Cli
     {
         // TODO: Implement createCli() method.
-        $cli = new Cli();
-        $this->configurator(handler: $cli);
-
-        return $cli;
+        return new Cli();
     }
 
     public function run(Cli|Request $handler): void

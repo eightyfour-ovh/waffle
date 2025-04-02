@@ -2,12 +2,8 @@
 
 namespace Eightyfour\Abstract;
 
-use Eightyfour\Trait\DotenvTrait;
-
 abstract class AbstractCli
 {
-    use DotenvTrait;
-
     private(set) bool $cli
         {
             get => $this->cli;
@@ -20,6 +16,5 @@ abstract class AbstractCli
     {
         // TODO: Implement configure() method.
         $this->cli = $cli;
-        $this->loadEnv();
     }
 }

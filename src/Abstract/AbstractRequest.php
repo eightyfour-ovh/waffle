@@ -2,12 +2,8 @@
 
 namespace Eightyfour\Abstract;
 
-use Eightyfour\Trait\DotenvTrait;
-
 abstract class AbstractRequest
 {
-    use DotenvTrait;
-
     /**
      * @var array<mixed>
      */
@@ -92,6 +88,5 @@ abstract class AbstractRequest
     {
         // TODO: Implement configure() method.
         $this->cli = $cli;
-        $this->loadEnv();
     }
 }

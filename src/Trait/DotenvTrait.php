@@ -6,9 +6,10 @@ use Symfony\Component\Dotenv\Dotenv;
 
 trait DotenvTrait
 {
-    public function loadEnv(): void
+    public function loadEnv(bool $tests = false): void
     {
         $dotenv = new Dotenv();
-        $dotenv->loadEnv(path: APP_ROOT . '/.env');
+        $test = $tests ? '' : '.test';
+        $dotenv->loadEnv(path: APP_ROOT . "/.env$test");
     }
 }
