@@ -10,6 +10,6 @@ trait DotenvTrait
     {
         $dotenv = new Dotenv();
         $test = $tests ? '.test' : '';
-        $dotenv->loadEnv(path: APP_ROOT . "/.env$test");
+        $dotenv->loadEnv(path: APP_ROOT . DIRECTORY_SEPARATOR . ".env$test");
     }
 }

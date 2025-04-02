@@ -7,7 +7,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 define('APP_ROOT', realpath(path: dirname(path: __DIR__)));
 
 $kernel = new Kernel();
-$kernel->loadEnv();
+$kernel
+    ->boot()
+    ->configure()
+    ->loadEnv()
+;
 
 // TODO: Handle CLI requests later from this
 $handler = $kernel->isCli() ?

@@ -39,6 +39,7 @@ abstract class AbstractResponse
     {
         $json = json_encode(value: $this->data?: [
             "message" => "Welcome to Eightyfour!",
+            "CLI" => $this->cli,
         ],flags: JSON_PRETTY_PRINT);
         if ($_ENV[Constant::APP_ENV] !== Constant::ENV_TEST) print_r($json);
     }

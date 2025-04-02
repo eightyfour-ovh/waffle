@@ -4,6 +4,7 @@ namespace Eightyfour\Abstract;
 
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
+use Eightyfour\Interface\ConfigInterface;
 use Eightyfour\Trait\DotenvTrait;
 use Eightyfour\Trait\MicrokernelTrait;
 
@@ -11,6 +12,17 @@ abstract class AbstractKernel
 {
     use MicrokernelTrait;
     use DotenvTrait;
+
+    protected(set) ?ConfigInterface $config
+        {
+            set => $this->config = $value;
+        }
+
+    public function configure(): self
+    {
+        // TODO: Implement configure() method.
+        return $this;
+    }
 
     public function createRequestFromGlobals(): Request
     {
