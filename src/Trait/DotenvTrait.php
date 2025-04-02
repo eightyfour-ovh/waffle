@@ -9,7 +9,7 @@ trait DotenvTrait
     public function loadEnv(bool $tests = false): void
     {
         $dotenv = new Dotenv();
-        $test = $tests ? '' : '.test';
+        $test = $tests ? '.test' : '';
         $dotenv->loadEnv(path: APP_ROOT . "/.env$test");
     }
 }

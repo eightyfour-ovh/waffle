@@ -78,15 +78,13 @@ abstract class AbstractRequest
 
     private(set) bool $cli
         {
-            get => $this->cli;
             set => $this->cli = $value;
         }
 
-    abstract public function __construct();
+    abstract public function __construct(bool $cli = false);
 
     public function configure(bool $cli): void
     {
-        // TODO: Implement configure() method.
         $this->cli = $cli;
     }
 }

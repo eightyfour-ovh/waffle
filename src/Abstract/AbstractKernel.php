@@ -18,15 +18,14 @@ abstract class AbstractKernel
         return new Request();
     }
 
-    public function createCli(): Cli
+    public function createCliFromRequest(): Cli
     {
-        // TODO: Implement createCli() method.
-        return new Cli();
+        // TODO: Implement createCliFromRequest() method.
+        return new Cli(cli: false);
     }
 
     public function run(Cli|Request $handler): void
     {
-        // TODO: Implement run() method.
         $handler
             ->process()
             ->render()

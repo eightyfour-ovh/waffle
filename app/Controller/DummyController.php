@@ -2,15 +2,20 @@
 
 namespace App\Controller;
 
+use Eightyfour\Attribute\Route;
 use Eightyfour\Core\BaseController;
-use Eightyfour\Router\Route;
+use Eightyfour\Core\View;
 
 #[Route(path: '/', name: 'dummy')]
 class DummyController extends BaseController
 {
     #[Route(path: '', name: 'index')]
-    public function index(): void
+    public function index(): View
     {
-        // TODO: Implement index() method.
+        return new View(data: [
+            "someKey" => "someValue",
+            "anotherKey" => "anotherValue",
+            "get" => "TODO: Implement GET method"
+        ]);
     }
 }

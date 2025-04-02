@@ -1,6 +1,6 @@
 <?php
 
-namespace Eightyfour\Router;
+namespace Eightyfour\Attribute;
 
 use Attribute;
 

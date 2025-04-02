@@ -41,7 +41,7 @@ class KernelTest extends TestCase
         $class = $this->getClass();
 
         // When
-        $result = $class->createCli();
+        $result = $class->createCliFromRequest();
 
         // Expects
         $this->assertInstanceOf(Cli::class, $result);

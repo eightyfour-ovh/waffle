@@ -11,7 +11,7 @@ interface KernelInterface
 
     public function createRequestFromGlobals(): Request;
 
-    public function createCli(): Cli;
+    public function createCliFromRequest(): Cli;
 
     public function run(Cli|Request $handler): void;
 }

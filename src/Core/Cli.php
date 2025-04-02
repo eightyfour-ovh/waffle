@@ -7,10 +7,9 @@ use Eightyfour\Interface\CliInterface;
 
 class Cli extends AbstractCli implements CliInterface
 {
-    public function __construct()
+    public function __construct(bool $cli = true)
     {
-        // TODO: Implement __construct() method.
-        $this->configure(cli: true);
+        $this->configure(cli: $cli);
     }
 
     public function process(): Response

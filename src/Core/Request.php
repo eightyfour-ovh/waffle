@@ -7,10 +7,9 @@ use Eightyfour\Interface\RequestInterface;
 
 class Request extends AbstractRequest implements RequestInterface
 {
-    public function __construct()
+    public function __construct(bool $cli = false)
     {
-        // TODO: Implement __construct() method.
-        $this->configure(cli: false);
+        $this->configure(cli: $cli);
     }
 
     public function process(): Response
