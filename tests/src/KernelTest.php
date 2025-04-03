@@ -5,12 +5,37 @@ namespace EightyfourTests;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
 use Eightyfour\Core\Response;
+use Eightyfour\Interface\ConfigInterface;
 use Eightyfour\Kernel;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
 class KernelTest extends TestCase
 {
+    public function testBoot(): void
+    {
+        // Given
+        $class = $this->getClass();
+
+        // When
+        $result = $class->boot();
+
+        // Expects
+        $this->assertInstanceOf(ConfigInterface::class, $result->config);
+    }
+
+    public function testConfigure(): void
+    {
+        // Given
+        $class = $this->getClass()->boot();
+
+        // When
+        $result = $class->configure();
+
+        // Expects
+        $this->assertInstanceOf(ConfigInterface::class, $result->config);
+    }
+
     public function testIsCli(): void
     {
         // Given

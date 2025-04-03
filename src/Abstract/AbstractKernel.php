@@ -2,18 +2,20 @@
 
 namespace Eightyfour\Abstract;
 
+use Eightyfour\Attribute\Configuration;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
 use Eightyfour\Interface\ConfigInterface;
 use Eightyfour\Trait\DotenvTrait;
 use Eightyfour\Trait\MicrokernelTrait;
+use ReflectionObject;
 
 abstract class AbstractKernel
 {
     use MicrokernelTrait;
     use DotenvTrait;
 
-    protected(set) ?ConfigInterface $config
+    protected(set) ConfigInterface $config
         {
             set => $this->config = $value;
         }
@@ -21,6 +23,11 @@ abstract class AbstractKernel
     public function configure(): self
     {
         // TODO: Implement configure() method.
+        $configObject = new ReflectionObject(object: $this->config);
+        foreach ($configObject->getAttributes(name: Configuration::class) as $attribute) {
+            $this->config = $attribute->newInstance();
+        }
+
         return $this;
     }
 

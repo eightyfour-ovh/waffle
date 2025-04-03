@@ -2,13 +2,15 @@
 
 namespace App;
 
-use App\Config\App;
 use Eightyfour\Kernel as Base;
+use Override;
+
 class Kernel extends Base
 {
+    #[Override]
     public function boot(): self
     {
-        $this->config = new App();
+        $this->config = new Config();
 
         return $this;
     }
