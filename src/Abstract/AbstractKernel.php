@@ -8,14 +8,15 @@ use Eightyfour\Core\Request;
 use Eightyfour\Router\Router;
 use Eightyfour\Trait\DotenvTrait;
 use Eightyfour\Trait\MicrokernelTrait;
-use ReflectionObject;
+use Eightyfour\Trait\ReflectionTrait;
 
 abstract class AbstractKernel
 {
     use MicrokernelTrait;
     use DotenvTrait;
+    use ReflectionTrait;
 
-    protected(set) Configuration $config
+    protected(set) object $config
         {
             set => $this->config = $value;
         }
@@ -28,11 +29,12 @@ abstract class AbstractKernel
     public function configure(): self
     {
         // TODO: Implement configure() method.
-        $configObject = new ReflectionObject(object: $this->config);
-        foreach ($configObject->getAttributes(name: Configuration::class) as $attribute) {
-            $this->config = $attribute->newInstance();
+        $this->config = $this->newAttributeInstance(className: $this->config, attribute: Configuration::class);
+        if ($this->config instanceof Configuration) {
+            $this->router = new Router(directory: $this->config->controllerDir)
+                ->boot()
+            ;
         }
-        $this->router = new Router(directory: $this->config->controllerDir);
 
         return $this;
     }

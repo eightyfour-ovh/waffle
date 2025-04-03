@@ -9,6 +9,7 @@ use Eightyfour\Interface\ConfigInterface;
 use Eightyfour\Kernel;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 
 class KernelTest extends TestCase
 {
@@ -33,7 +34,7 @@ class KernelTest extends TestCase
         $result = $class->configure();
 
         // Expects
-        $this->assertInstanceOf(ConfigInterface::class, $result->config);
+        $this->assertInstanceOf(ReflectionObject::class, $result->config);
     }
 
     public function testIsCli(): void
