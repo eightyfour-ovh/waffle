@@ -5,7 +5,7 @@ namespace Eightyfour\Abstract;
 use Eightyfour\Attribute\Configuration;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
-use Eightyfour\Interface\ConfigInterface;
+use Eightyfour\Router\Router;
 use Eightyfour\Trait\DotenvTrait;
 use Eightyfour\Trait\MicrokernelTrait;
 use ReflectionObject;
@@ -15,9 +15,14 @@ abstract class AbstractKernel
     use MicrokernelTrait;
     use DotenvTrait;
 
-    protected(set) ConfigInterface $config
+    protected(set) Configuration $config
         {
             set => $this->config = $value;
+        }
+
+    protected(set) Router $router
+        {
+            set => $this->router = $value;
         }
 
     public function configure(): self
@@ -27,6 +32,7 @@ abstract class AbstractKernel
         foreach ($configObject->getAttributes(name: Configuration::class) as $attribute) {
             $this->config = $attribute->newInstance();
         }
+        $this->router = new Router(directory: $this->config->controllerDir);
 
         return $this;
     }

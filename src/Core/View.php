@@ -9,6 +9,5 @@ readonly class View
      */
     public function __construct(
         public ?array $data = null
-    ) {
-    }
+    ) {}
 }
