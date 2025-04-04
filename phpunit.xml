@@ -16,18 +16,18 @@
         <server name="SHELL_VERBOSITY" value="-1"/>
     </php>
     <testsuites>
-        <testsuite name="Eightyfour Test Suite">
-            <directory>tests</directory>
+        <testsuite name="App Test Suite">
+            <directory>tests/app</directory>
+        </testsuite>
+        <testsuite name="Waffle Test Suite">
+            <directory>tests/src</directory>
         </testsuite>
     </testsuites>
     <coverage/>
     <source>
         <include>
+            <directory suffix=".php">app</directory>
             <directory suffix=".php">src</directory>
         </include>
-        <exclude>
-            <directory suffix=".php">src/Core/Reflection</directory>
-            <file>src/Core/DotEnv.php</file>
-        </exclude>
     </source>
 </phpunit>

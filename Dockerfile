@@ -2,7 +2,7 @@ ARG FRAKEN_VERSION='1.4.4'
 ARG PHP_VERSION='8.4.5'
 ARG OS='bookworm'
 
-FROM composer:latest as composer
+FROM composer:latest AS composer
 FROM dunglas/frankenphp:${FRAKEN_VERSION}-php${PHP_VERSION}-${OS}
 
 # add additional extensions here:
@@ -11,7 +11,10 @@ RUN install-php-extensions \
 	gd \
 	intl \
 	zip \
-	opcache;
+	opcache \
+    xdebug;
+
+RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 

@@ -1,14 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Eightyfour\Interface;
 
+use Eightyfour\Core\Cli;
+use Eightyfour\Core\Request;
+
 interface KernelInterface
 {
-    function run(): void;
+    public function isCli(): bool;
 
-    function fromRequest(): void;
+    public function createRequestFromGlobals(): Request;
 
-    function fromCli(): void;
+    public function createCliFromRequest(): Cli;
 
-    function toResponse(): void;
+    public function run(Cli|Request $handler): void;
 }
