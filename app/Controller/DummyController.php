@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\DummyService;
 use Eightyfour\Attribute\Route;
 use Eightyfour\Core\BaseController;
 use Eightyfour\Core\View;
@@ -10,12 +11,8 @@ use Eightyfour\Core\View;
 class DummyController extends BaseController
 {
     #[Route(path: '', name: 'index')]
-    public function index(): View
+    public function index(DummyService $service): View
     {
-        return new View(data: [
-            "someKey" => "someValue",
-            "anotherKey" => "anotherValue",
-            "get" => "TODO: Implement GET method"
-        ]);
+        return new View(data: $service->getResults());
     }
 }

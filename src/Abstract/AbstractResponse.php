@@ -21,9 +21,9 @@ abstract class AbstractResponse
             set => $this->cli = $value;
         }
 
-    private(set) Cli|Request $request
+    private(set) Cli|Request $handler
         {
-            set => $this->request = $value;
+            set => $this->handler = $value;
         }
 
     abstract public function __construct(Cli|Request $handler);
@@ -32,15 +32,12 @@ abstract class AbstractResponse
     {
         $this->data = null;
         $this->cli = $handler->cli;
-        $this->request = ($this->cli && $handler instanceof Cli) ? new Request(cli: true) : $handler;
+        $this->handler = ($this->cli && $handler instanceof Cli) ? new Request(cli: true) : $handler;
     }
 
     public function render(): void
     {
-        $json = json_encode(value: $this->data?: [
-            "message" => "Welcome to Eightyfour!",
-            "CLI" => $this->cli,
-        ],flags: JSON_PRETTY_PRINT);
+        $json = json_encode(value: $this->data?: Constant::DEFAULT_DATA,flags: JSON_PRETTY_PRINT);
         if ($_ENV[Constant::APP_ENV] !== Constant::ENV_TEST) print_r($json);
     }
 }

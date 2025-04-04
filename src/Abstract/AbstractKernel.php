@@ -4,6 +4,7 @@ namespace Eightyfour\Abstract;
 
 use Eightyfour\Attribute\Configuration;
 use Eightyfour\Core\Cli;
+use Eightyfour\Core\Constant;
 use Eightyfour\Core\Request;
 use Eightyfour\Router\Router;
 use Eightyfour\Trait\DotenvTrait;
@@ -33,6 +34,7 @@ abstract class AbstractKernel
         if ($this->config instanceof Configuration) {
             $this->router = new Router(directory: $this->config->controllerDir)
                 ->boot()
+                ->registerRoutes()
             ;
         }
 
@@ -42,7 +44,20 @@ abstract class AbstractKernel
     public function createRequestFromGlobals(): Request
     {
         // TODO: Implement createRequestFromGlobals() method.
-        return new Request();
+        $req = new Request()->setCurrentRoute();
+        if ($this->isCli() === false) {
+            /** @var string $reqUri */
+            $reqUri = $req->server[Constant::REQUEST_URI];
+            $uri = explode(separator: '?', string: $reqUri);
+            foreach ($this->router->routes as $route) {
+                if ($route[Constant::PATH] !== $uri[0]) {
+                    continue;
+                }
+                $req->setCurrentRoute(route: $route);
+            }
+        }
+
+        return $req;
     }
 
     public function createCliFromRequest(): Cli

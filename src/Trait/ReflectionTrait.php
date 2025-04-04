@@ -2,13 +2,15 @@
 
 namespace Eightyfour\Trait;
 
+use Eightyfour\Core\Constant;
+use ReflectionMethod;
 use ReflectionObject;
 
 trait ReflectionTrait
 {
     public function className(string $path): string
     {
-        $className = str_replace(search: '.php', replace: '', subject: $path);
+        $className = str_replace(search: Constant::PHPEXT, replace: '', subject: $path);
         $className = str_replace(search: APP_ROOT . DIRECTORY_SEPARATOR, replace: '', subject: $className);
         $className = str_replace(search: DIRECTORY_SEPARATOR, replace: '\\', subject: $className);
 
@@ -23,5 +25,14 @@ trait ReflectionTrait
         }
 
         return $obj;
+    }
+
+    /**
+     * @param object $className
+     * @return ReflectionMethod[]
+     */
+    public function getMethods(object $className): array
+    {
+        return new ReflectionObject(object: $className)->getMethods();
     }
 }
