@@ -3,8 +3,10 @@
 namespace Core;
 
 use Eightyfour\Core\Cli;
+use Eightyfour\Core\Constant;
 use Eightyfour\Core\Request;
 use Eightyfour\Core\Response;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
 class ResponseTest extends TestCase
@@ -33,16 +35,30 @@ class ResponseTest extends TestCase
         $this->expectNotToPerformAssertions();
     }
 
+    /**
+     * @throws Exception
+     */
     private function getClassFromCli(): Response
     {
-        $handler = new Cli();
+        $handler = $this->createMock(Cli::class);
+        $handler
+            ->expects($this->any())
+            ->method('configure')
+        ;
 
         return new Response(handler: $handler);
     }
 
+    /**
+     * @throws Exception
+     */
     private function getClassFromRequest(): Response
     {
-        $handler = new Request();
+        $handler = $this->createMock(Request::class);
+        $handler
+            ->expects($this->any())
+            ->method('configure')
+        ;
 
         return new Response(handler: $handler);
     }

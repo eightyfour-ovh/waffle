@@ -78,7 +78,7 @@ abstract class AbstractRequest
             get => $_ENV;
         }
 
-    private(set) bool $cli
+    private(set) bool $cli = false
         {
             set => $this->cli = $value;
         }
@@ -92,7 +92,7 @@ abstract class AbstractRequest
      *     name: non-falsy-string
      * }|null
      */
-    private(set) ?array $currentRoute
+    private(set) ?array $currentRoute = null
         {
             set => $this->currentRoute = $value;
         }

@@ -4,4 +4,9 @@ use App\Kernel;
 
 define('APP_ROOT', realpath(path: dirname(path: __DIR__)));
 
-new Kernel()->loadEnv();
+$kernel = new Kernel();
+$kernel
+    ->boot()
+    ->configure()
+    ->loadEnv()
+;

@@ -24,6 +24,7 @@ class Constant
     public const DEFAULT = 'default';
     public const PHPEXT = '.php';
     public const CLASSNAME = 'classname';
+    public const CLI = 'cli';
     public const METHOD = 'method';
     public const ARGUMENTS = 'arguments';
     public const PATH = 'path';

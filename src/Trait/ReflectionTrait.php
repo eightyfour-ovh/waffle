@@ -3,6 +3,7 @@
 namespace Eightyfour\Trait;
 
 use Eightyfour\Core\Constant;
+use Generator;
 use ReflectionMethod;
 use ReflectionObject;
 
@@ -34,5 +35,26 @@ trait ReflectionTrait
     public function getMethods(object $className): array
     {
         return new ReflectionObject(object: $className)->getMethods();
+    }
+
+    /**
+     * @param array{
+     *      classname: string,
+     *      method: non-empty-string,
+     *      arguments: array<non-empty-string, string>,
+     *      path: string,
+     *      name: non-falsy-string
+     * }|null $route
+     * @return Generator
+     */
+    public function controllerValues(?array $route = null): Generator
+    {
+        if ($route === null) {
+            yield null;
+        } else {
+            foreach ($route as $key => $value) {
+                yield $key => $value;
+            }
+        }
     }
 }

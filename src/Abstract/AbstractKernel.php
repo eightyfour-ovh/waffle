@@ -22,7 +22,7 @@ abstract class AbstractKernel
             set => $this->config = $value;
         }
 
-    protected(set) Router $router
+    protected(set) ?Router $router = null
         {
             set => $this->router = $value;
         }
@@ -45,15 +45,18 @@ abstract class AbstractKernel
     {
         // TODO: Implement createRequestFromGlobals() method.
         $req = new Request()->setCurrentRoute();
-        if ($this->isCli() === false) {
+        if ($req->cli === false) {
             /** @var string $reqUri */
-            $reqUri = $req->server[Constant::REQUEST_URI];
+            $reqUri = !empty($req->server[Constant::REQUEST_URI]) ?
+                $req->server[Constant::REQUEST_URI] : '?';
             $uri = explode(separator: '?', string: $reqUri);
-            foreach ($this->router->routes as $route) {
-                if ($route[Constant::PATH] !== $uri[0]) {
-                    continue;
+            if ($this->router !== null) {
+                foreach ($this->router->routes as $route) {
+                    if ($route[Constant::PATH] !== $uri[0]) {
+                        continue;
+                    }
+                    $req->setCurrentRoute(route: $route);
                 }
-                $req->setCurrentRoute(route: $route);
             }
         }
 
@@ -63,7 +66,7 @@ abstract class AbstractKernel
     public function createCliFromRequest(): Cli
     {
         // TODO: Implement createCliFromRequest() method.
-        return new Cli(cli: false);
+        return new Cli(cli: false)->setCurrentRoute();
     }
 
     public function run(Cli|Request $handler): void

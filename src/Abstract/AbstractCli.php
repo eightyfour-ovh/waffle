@@ -6,7 +6,7 @@ use ReflectionParameter;
 
 abstract class AbstractCli
 {
-    private(set) bool $cli
+    private(set) bool $cli = true
         {
             set => $this->cli = $value;
         }
@@ -20,7 +20,7 @@ abstract class AbstractCli
      *     name: non-falsy-string
      * }|null
      */
-    private(set) ?array $currentRoute
+    private(set) ?array $currentRoute = null
         {
             set => $this->currentRoute = $value;
         }
@@ -30,5 +30,22 @@ abstract class AbstractCli
     public function configure(bool $cli): void
     {
         $this->cli = $cli;
+    }
+
+    /**
+     * @param array{
+     *      classname: string,
+     *      method: non-empty-string,
+     *      arguments: array<non-empty-string, string>,
+     *      path: string,
+     *      name: non-falsy-string
+     *  }|null $route
+     * @return $this
+     */
+    public function setCurrentRoute(?array $route = null): self
+    {
+        $this->currentRoute = $route;
+
+        return $this;
     }
 }
