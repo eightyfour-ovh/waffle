@@ -2,6 +2,7 @@
 
 namespace EightyfourTests;
 
+use Eightyfour\Attribute\Configuration;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
 use Eightyfour\Core\Response;
@@ -9,7 +10,6 @@ use Eightyfour\Interface\ConfigInterface;
 use Eightyfour\Kernel;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
-use ReflectionObject;
 
 class KernelTest extends TestCase
 {
@@ -34,7 +34,7 @@ class KernelTest extends TestCase
         $result = $class->configure();
 
         // Expects
-        $this->assertInstanceOf(ReflectionObject::class, $result->config);
+        $this->assertInstanceOf(Configuration::class, $result->config);
     }
 
     public function testIsCli(): void

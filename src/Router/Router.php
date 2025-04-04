@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Eightyfour\Router;
 
 use Eightyfour\Attribute\Route;
 use Eightyfour\Core\Constant;
+use Eightyfour\Core\System;
 use Eightyfour\Trait\ReflectionTrait;
 use ReflectionNamedType;
 use ReflectionParameter;

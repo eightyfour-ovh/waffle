@@ -2,8 +2,6 @@
 
 namespace Eightyfour\Abstract;
 
-use ReflectionParameter;
-
 abstract class AbstractCli
 {
     private(set) bool $cli = true
