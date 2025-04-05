@@ -11,6 +11,11 @@ use Eightyfour\Router\Router;
 
 class System extends AbstractSystem implements SystemInterface
 {
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function boot(Kernel|AbstractKernel $kernel): self
     {
         // TODO: Implement boot() method.
@@ -18,11 +23,12 @@ class System extends AbstractSystem implements SystemInterface
             Kernel::class,
             AbstractKernel::class,
         ]);
-        $isKernelSecure = $this->isSecure(object: $kernel);
+        $securityLevel = $kernel->config instanceof Configuration ?
+            $kernel->config->securityLevel : Constant::SECURITY_LEVEL10;
+        $isKernelSecure = $this->isSecure(object: $kernel, level: $securityLevel);
         if ($isKernelValid && $isKernelSecure) {
-            $this->config = $this->newAttributeInstance(className: $kernel->config, attribute: Configuration::class);
-            if ($this->config instanceof Configuration) {
-                $this->router = new Router(directory: $this->config->controllerDir)
+            if ($kernel->config instanceof Configuration) {
+                $this->router = new Router(directory: $kernel->config->controllerDir)
                     ->boot()
                     ->registerRoutes()
                 ;

@@ -2,9 +2,11 @@
 
 namespace Eightyfour\Abstract;
 
+use Eightyfour\Attribute\Configuration;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Constant;
 use Eightyfour\Core\Request;
+use Eightyfour\Core\Security;
 use Eightyfour\Core\System;
 use Eightyfour\Trait\DotenvTrait;
 use Eightyfour\Trait\MicrokernelTrait;
@@ -29,7 +31,9 @@ abstract class AbstractKernel
     public function configure(): self
     {
         // TODO: Implement configure() method.
-        $this->system = new System()->boot(kernel: $this);
+        $this->config = $this->newAttributeInstance(className: $this->config, attribute: Configuration::class);
+        $security = new Security(cfg: $this->config);
+        $this->system = new System(security: $security)->boot(kernel: $this);
 
         return $this;
     }
