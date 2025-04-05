@@ -14,6 +14,7 @@ class Constant
     public const string  ENV_TEST = 'test';
     public const string  ENV_STAGING = 'staging';
     public const string  ENV_PROD = 'prod';
+    public const string  ENV_EXCEPTION = 'exception';
 
     // Define globals constants
     public const string  CURRENT_DIR = '.';

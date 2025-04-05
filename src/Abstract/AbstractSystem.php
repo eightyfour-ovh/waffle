@@ -13,7 +13,7 @@ abstract class AbstractSystem implements SystemInterface
     use ReflectionTrait;
     use SystemTrait;
 
-    protected(set) ?Security $security = null
+    protected(set) Security $security
         {
             set => $this->security = $value;
         }

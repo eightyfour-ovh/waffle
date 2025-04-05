@@ -13,7 +13,7 @@ trait SecurityTrait
      */
     public function isValid(?object $object = null, array $expectations = []): bool
     {
-        return array_any($expectations, fn($expectation) => $object instanceof $expectation);
+        return array_all($expectations, fn($expectation) => $object instanceof $expectation);
     }
 
     public function isSecure(object $object, int $level = 10): bool

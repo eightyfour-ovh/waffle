@@ -10,10 +10,12 @@ use Eightyfour\Interface\CliInterface;
 use Eightyfour\Interface\RequestInterface;
 use Eightyfour\Interface\ResponseInterface;
 use Eightyfour\Trait\ReflectionTrait;
+use Eightyfour\Trait\RenderingTrait;
 
 abstract class AbstractResponse implements ResponseInterface
 {
     use ReflectionTrait;
+    use RenderingTrait;
 
     /**
      * @var View|null
@@ -73,9 +75,9 @@ abstract class AbstractResponse implements ResponseInterface
             /** @var View $view */
             $view = call_user_func_array(callback: $callable, args: $args);
             $this->view = $view;
-
-            $json = json_encode(value: $this->view ?: Constant::DEFAULT_DATA,flags: JSON_PRETTY_PRINT);
-            if ($_ENV[Constant::APP_ENV] !== Constant::ENV_TEST) print_r($json);
+            /** @var string $env */
+            $env = $this->handler->env[Constant::APP_ENV];
+            $this->rendering(view: $view, env: $env);
         }
     }
 }
