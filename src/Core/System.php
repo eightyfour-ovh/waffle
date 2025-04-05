@@ -21,10 +21,12 @@ class System extends AbstractSystem implements SystemInterface
         $isKernelSecure = $this->isSecure(object: $kernel);
         if ($isKernelValid && $isKernelSecure) {
             $this->config = $this->newAttributeInstance(className: $kernel->config, attribute: Configuration::class);
-            $this->router = new Router(directory: $this->config->controllerDir)
-                ->boot()
-                ->registerRoutes()
-            ;
+            if ($this->config instanceof Configuration) {
+                $this->router = new Router(directory: $this->config->controllerDir)
+                    ->boot()
+                    ->registerRoutes()
+                ;
+            }
         }
 
         return $this;

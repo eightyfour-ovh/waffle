@@ -2,7 +2,6 @@
 
 namespace Eightyfour\Abstract;
 
-use Eightyfour\Attribute\Configuration;
 use Eightyfour\Router\Router;
 use Eightyfour\Trait\ReflectionTrait;
 use Eightyfour\Trait\SystemTrait;
@@ -12,7 +11,7 @@ abstract class AbstractSystem
     use ReflectionTrait;
     use SystemTrait;
 
-    protected(set) Configuration $config
+    protected(set) object $config
         {
             set => $this->config = $value;
         }
