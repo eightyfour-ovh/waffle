@@ -11,11 +11,4 @@ class Cli extends AbstractCli implements CliInterface
     {
         $this->configure(cli: $cli);
     }
-
-    public function process(): Response
-    {
-        // TODO: Implement process() method.
-
-        return new Response(handler: $this);
-    }
 }

@@ -2,8 +2,12 @@
 
 namespace Eightyfour\Abstract;
 
+use Eightyfour\Trait\SecurityTrait;
+
 abstract class AbstractSecurity
 {
+    use SecurityTrait;
+
     protected(set) int $level
         {
             set => $this->level = $value;

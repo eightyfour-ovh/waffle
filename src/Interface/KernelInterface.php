@@ -2,16 +2,15 @@
 
 namespace Eightyfour\Interface;
 
-use Eightyfour\Core\Cli;
-use Eightyfour\Core\Request;
-
 interface KernelInterface
 {
-    public function isCli(): bool;
+    public function boot(): self;
 
-    public function createRequestFromGlobals(): Request;
+    public function configure(): self;
 
-    public function createCliFromRequest(): Cli;
+    public function createRequestFromGlobals(): RequestInterface;
 
-    public function run(Cli|Request $handler): void;
+    public function createCliFromRequest(): CliInterface;
+
+    public function run(CliInterface|RequestInterface $handler): void;
 }

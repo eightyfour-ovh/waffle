@@ -3,15 +3,14 @@
 namespace Eightyfour\Abstract;
 
 use Eightyfour\Core\Security;
+use Eightyfour\Interface\SystemInterface;
 use Eightyfour\Router\Router;
 use Eightyfour\Trait\ReflectionTrait;
-use Eightyfour\Trait\SecurityTrait;
 use Eightyfour\Trait\SystemTrait;
 
-abstract class AbstractSystem
+abstract class AbstractSystem implements SystemInterface
 {
     use ReflectionTrait;
-    use SecurityTrait;
     use SystemTrait;
 
     protected(set) ?Security $security = null

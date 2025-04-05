@@ -2,7 +2,11 @@
 
 namespace Eightyfour\Abstract;
 
-abstract class AbstractCli
+use Eightyfour\Core\Response;
+use Eightyfour\Interface\CliInterface;
+use Eightyfour\Interface\ResponseInterface;
+
+abstract class AbstractCli implements CliInterface
 {
     private(set) bool $cli = true
         {
@@ -28,6 +32,11 @@ abstract class AbstractCli
     public function configure(bool $cli): void
     {
         $this->cli = $cli;
+    }
+
+    public function process(): ResponseInterface
+    {
+        return new Response(handler: $this);
     }
 
     /**

@@ -3,10 +3,9 @@
 namespace Eightyfour\Attribute;
 
 use Attribute;
-use Eightyfour\Interface\ConfigInterface;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-class Configuration implements ConfigInterface
+class Configuration
 {
     private(set) string|false $controllerDir
         {

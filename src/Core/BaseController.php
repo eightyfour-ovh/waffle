@@ -7,4 +7,5 @@ use Eightyfour\Interface\BaseControllerInterface;
 
 class BaseController extends AbstractController implements BaseControllerInterface
 {
+
 }

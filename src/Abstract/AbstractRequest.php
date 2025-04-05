@@ -2,7 +2,11 @@
 
 namespace Eightyfour\Abstract;
 
-abstract class AbstractRequest
+use Eightyfour\Core\Response;
+use Eightyfour\Interface\RequestInterface;
+use Eightyfour\Interface\ResponseInterface;
+
+abstract class AbstractRequest implements RequestInterface
 {
     /**
      * @var array<mixed>
@@ -100,6 +104,11 @@ abstract class AbstractRequest
     public function configure(bool $cli): void
     {
         $this->cli = $cli;
+    }
+
+    public function process(): ResponseInterface
+    {
+        return new Response(handler: $this);
     }
 
     /**

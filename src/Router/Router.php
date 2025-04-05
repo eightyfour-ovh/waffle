@@ -47,10 +47,8 @@ class Router
 
     public function boot(): self
     {
-        // TODO: Implement boot() method.
         $this->routes = $this->files = [];
         if ($this->directory === false) {
-            // TODO: Handle this error.
             return $this;
         }
 
@@ -65,7 +63,6 @@ class Router
      */
     protected function scan(string $directory): array
     {
-        // TODO: Implement scan() method.
         $files = [];
         $paths = scandir(directory: $directory);
         if ($paths !== false) {

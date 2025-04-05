@@ -13,7 +13,6 @@ $kernel
     ->loadEnv()
 ;
 
-// TODO: Handle CLI requests later from this
 $handler = $kernel->isCli() ?
     $kernel->createCliFromRequest() : $kernel->createRequestFromGlobals();
 

@@ -2,7 +2,9 @@
 
 namespace Eightyfour\Abstract;
 
-abstract class AbstractController
+use Eightyfour\Interface\BaseControllerInterface;
+
+abstract class AbstractController implements BaseControllerInterface
 {
     
 }
