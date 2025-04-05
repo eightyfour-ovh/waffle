@@ -11,11 +11,4 @@ class Request extends AbstractRequest implements RequestInterface
     {
         $this->configure(cli: $cli);
     }
-
-    public function process(): Response
-    {
-        // TODO: Implement process() method.
-
-        return new Response(handler: $this);
-    }
 }

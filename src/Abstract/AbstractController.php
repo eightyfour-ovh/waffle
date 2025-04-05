@@ -1,8 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Eightyfour\Abstract;
 
-abstract class AbstractController
+use Eightyfour\Interface\BaseControllerInterface;
+
+abstract class AbstractController implements BaseControllerInterface
 {
     
 }

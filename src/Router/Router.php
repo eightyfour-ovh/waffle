@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Eightyfour\Router;
 
@@ -6,7 +6,6 @@ use Eightyfour\Attribute\Route;
 use Eightyfour\Core\Constant;
 use Eightyfour\Trait\ReflectionTrait;
 use ReflectionNamedType;
-use ReflectionParameter;
 
 class Router
 {
@@ -48,10 +47,8 @@ class Router
 
     public function boot(): self
     {
-        // TODO: Implement boot() method.
         $this->routes = $this->files = [];
         if ($this->directory === false) {
-            // TODO: Handle this error.
             return $this;
         }
 
@@ -66,7 +63,6 @@ class Router
      */
     protected function scan(string $directory): array
     {
-        // TODO: Implement scan() method.
         $files = [];
         $paths = scandir(directory: $directory);
         if ($paths !== false) {
@@ -102,7 +98,7 @@ class Router
                         foreach ($attributes as $attribute) {
                             $route = $attribute->newInstance();
                             $path = $classRoute->path . $route->path;
-                            if (!in_array(needle: $path, haystack: $routes)) {
+                            if (!$this->isRouteRegistered(path: $path, routes: $routes)) {
                                 $classRouteName = $classRoute->name ?: Constant::DEFAULT;
                                 $routeName = $route->name ?: Constant::DEFAULT;
                                 $params = [];
@@ -127,5 +123,27 @@ class Router
         $this->routes = $routes;
 
         return $this;
+    }
+
+    /**
+     * @param string $path
+     * @param list<array{
+     *      classname: string,
+     *      method: non-empty-string,
+     *      arguments: array<non-empty-string, string>,
+     *      path: string,
+     *      name: non-falsy-string
+     *  }> $routes
+     * @return bool
+     */
+    private function isRouteRegistered(string $path, array $routes): bool
+    {
+        foreach ($routes as $route) {
+            if ($route[Constant::PATH] === $path) {
+                return true;
+            }
+        }
+
+        return  false;
     }
 }

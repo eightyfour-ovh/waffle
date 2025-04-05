@@ -11,6 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class ResponseTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testRenderFromCli(): void
     {
         // Given
@@ -23,6 +26,9 @@ class ResponseTest extends TestCase
         $this->expectNotToPerformAssertions();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testRenderFromRequest(): void
     {
         // Given

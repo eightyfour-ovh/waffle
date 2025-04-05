@@ -4,5 +4,5 @@ namespace Eightyfour\Interface;
 
 interface SystemInterface
 {
-
+    public function boot(KernelInterface $kernel): self;
 }

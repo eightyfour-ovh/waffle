@@ -6,12 +6,16 @@ use Eightyfour\Attribute\Configuration;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Constant;
 use Eightyfour\Core\Request;
-use Eightyfour\Router\Router;
+use Eightyfour\Core\Security;
+use Eightyfour\Core\System;
+use Eightyfour\Interface\CliInterface;
+use Eightyfour\Interface\KernelInterface;
+use Eightyfour\Interface\RequestInterface;
 use Eightyfour\Trait\DotenvTrait;
 use Eightyfour\Trait\MicrokernelTrait;
 use Eightyfour\Trait\ReflectionTrait;
 
-abstract class AbstractKernel
+abstract class AbstractKernel implements KernelInterface
 {
     use MicrokernelTrait;
     use DotenvTrait;
@@ -22,36 +26,37 @@ abstract class AbstractKernel
             set => $this->config = $value;
         }
 
-    protected(set) ?Router $router = null
+    protected(set) ?System $system = null
         {
-            set => $this->router = $value;
+            set => $this->system = $value;
         }
 
-    public function configure(): self
+    public function boot(): self
     {
-        // TODO: Implement configure() method.
-        $this->config = $this->newAttributeInstance(className: $this->config, attribute: Configuration::class);
-        if ($this->config instanceof Configuration) {
-            $this->router = new Router(directory: $this->config->controllerDir)
-                ->boot()
-                ->registerRoutes()
-            ;
-        }
+        $this->config = new Configuration();
 
         return $this;
     }
 
-    public function createRequestFromGlobals(): Request
+    public function configure(): self
     {
-        // TODO: Implement createRequestFromGlobals() method.
+        $this->config = $this->newAttributeInstance(className: $this->config, attribute: Configuration::class);
+        $security = new Security(cfg: $this->config);
+        $this->system = new System(security: $security)->boot(kernel: $this);
+
+        return $this;
+    }
+
+    public function createRequestFromGlobals(): RequestInterface
+    {
         $req = new Request()->setCurrentRoute();
         if ($req->cli === false) {
             /** @var string $reqUri */
             $reqUri = !empty($req->server[Constant::REQUEST_URI]) ?
                 $req->server[Constant::REQUEST_URI] : '?';
             $uri = explode(separator: '?', string: $reqUri);
-            if ($this->router !== null) {
-                foreach ($this->router->routes as $route) {
+            if ($this->system instanceof System && $this->system->router !== null) {
+                foreach ($this->system->router->routes as $route) {
                     if ($route[Constant::PATH] !== $uri[0]) {
                         continue;
                     }
@@ -63,13 +68,12 @@ abstract class AbstractKernel
         return $req;
     }
 
-    public function createCliFromRequest(): Cli
+    public function createCliFromRequest(): CliInterface
     {
-        // TODO: Implement createCliFromRequest() method.
         return new Cli(cli: false)->setCurrentRoute();
     }
 
-    public function run(Cli|Request $handler): void
+    public function run(CliInterface|RequestInterface $handler): void
     {
         $handler
             ->process()

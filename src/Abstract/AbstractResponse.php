@@ -6,11 +6,16 @@ use Eightyfour\Core\Constant;
 use Eightyfour\Core\Cli;
 use Eightyfour\Core\Request;
 use Eightyfour\Core\View;
+use Eightyfour\Interface\CliInterface;
+use Eightyfour\Interface\RequestInterface;
+use Eightyfour\Interface\ResponseInterface;
 use Eightyfour\Trait\ReflectionTrait;
+use Eightyfour\Trait\RenderingTrait;
 
-abstract class AbstractResponse
+abstract class AbstractResponse implements ResponseInterface
 {
     use ReflectionTrait;
+    use RenderingTrait;
 
     /**
      * @var View|null
@@ -30,11 +35,12 @@ abstract class AbstractResponse
             set => $this->handler = $value;
         }
 
-    abstract public function __construct(Cli|Request $handler);
+    abstract public function __construct(CliInterface|RequestInterface $handler);
 
-    public function build(Cli|Request $handler): void
+    public function build(CliInterface|RequestInterface $handler): void
     {
         $this->view = null;
+        /** @var Cli|Request $handler */
         $this->cli = $handler->cli;
         $this->handler = ($this->cli && $handler instanceof Cli) ? new Request(cli: true) : $handler;
     }
@@ -57,8 +63,7 @@ abstract class AbstractResponse
                 default => $error = true,
             };
         }
-        if ($cli !== true) {
-            // TODO: Handle this in PHPUnit
+        if ($cli !== true || $error === true) {
             $class = new $class;
             /** @var array<non-empty-string, string> $argTypes */
             foreach ($argTypes as $argType) {
@@ -67,14 +72,12 @@ abstract class AbstractResponse
             }
             /** @var callable $callable */
             $callable = [$class, $method];
-            /**
-             * @var View $view
-             */
+            /** @var View $view */
             $view = call_user_func_array(callback: $callable, args: $args);
             $this->view = $view;
-
-            $json = json_encode(value: $this->view ?: Constant::DEFAULT_DATA,flags: JSON_PRETTY_PRINT);
-            if ($_ENV[Constant::APP_ENV] !== Constant::ENV_TEST) print_r($json);
+            /** @var string $env */
+            $env = $this->handler->env[Constant::APP_ENV];
+            $this->rendering(view: $view, env: $env);
         }
     }
 }
